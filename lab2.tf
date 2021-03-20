@@ -72,60 +72,22 @@ resource "aws_iam_policy" "policy" {
               "aws:username": "*"
           }
         }
-      },  
-
-      {
-        "Action": [
-          "iam:GenerateCredentialReport",
-          "iam:GetPolicyVersion",
-          "iam:GetAccountPasswordPolicy",
-          "iam:GetServiceLastAccessedDetailsWithEntities",
-          "iam:GenerateServiceLastAccessedDetails",
-          "iam:GetServiceLastAccessedDetails",
-          "iam:GetGroup",
-          "iam:GetContextKeysForPrincipalPolicy",
-          "iam:GetOrganizationsAccessReport",
-          "iam:GetServiceLinkedRoleDeletionStatus",
-          "iam:SimulateCustomPolicy",
-          "iam:SimulatePrincipalPolicy",
-          "iam:GenerateOrganizationsAccessReport",
-          "iam:GetAccountAuthorizationDetails",
-          "iam:GetCredentialReport",
-          "iam:GetSAMLProvider",
-          "iam:GetServerCertificate",
-          "iam:GetRole",
-          "iam:GetInstanceProfile",
-          "iam:GetPolicy",
-          "iam:GetAccessKeyLastUsed",
-          "iam:GetSSHPublicKey",
-          "iam:GetContextKeysForCustomPolicy",
-          "iam:GetUserPolicy",
-          "iam:GetGroupPolicy",
-          "iam:GetUser",
-          "iam:GetOpenIDConnectProvider",
-          "iam:GetRolePolicy"
-        ],
-        "Effect": "Allow",
-        "Resource": "*",
-        "Condition": {
-          "StringEquals": {
-              "aws:username": "*"
-          }
-        }
-      },
-
-      {
-        Action = [
-          "iam:*",
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-        Condition = {
-          "StringEquals": {
-              "aws:username": "tanelsaar"
-          }
-        }
       },
     ]
   })
+}
+
+data "aws_iam_policy_document" "tanelsaar_s3" {
+  statement {
+    actions = [
+      "s3:GetObject"
+    ]
+    principals {
+      identifiers = ["*"]
+      type = "AWS"
+    }
+    resources = [
+      "arn:aws:s3:::tanelsaar/*"
+    ]
+  }
 }

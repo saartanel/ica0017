@@ -62,6 +62,7 @@ resource "aws_instance" "web" {
   ami           = "ami-068509dbe82d01c91"
   instance_type = "t3.micro"
   key_name = "tanelsaar"
+  iam_instance_profile = "S3_Access"
 
   user_data = <<-EOF
                 #!/bin/bash
